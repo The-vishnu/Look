@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import addressSchema from "./addresse.models.js";
 
 const userSchema = new mongoose.Schema({
     username: {
@@ -17,12 +18,15 @@ const userSchema = new mongoose.Schema({
         type: Number,
         required: true,
     },
+    address: {
+        type: [addressSchema],
+        default: []
+    },
     provider: {
         type: String,
         enum: ["local", "google"], 
         default: "local"
     },
-
     password: {
         type: String,
         required: true,
