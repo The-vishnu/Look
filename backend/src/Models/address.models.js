@@ -1,4 +1,4 @@
-import mongoose, { Types } from "mongoose";
+import mongoose from "mongoose";
 
 const addressSchema = new mongoose.Schema({
     fullName: {
@@ -6,7 +6,7 @@ const addressSchema = new mongoose.Schema({
         required: true,
         trim: true
     },
-    lable: {
+    label: {                 // typo "lable" → "label"
         type: String,
         trim: true,
         default: "home"
@@ -26,7 +26,7 @@ const addressSchema = new mongoose.Schema({
         required: true,
         trim: true
     },
-    city: {
+    state: {
         type: String,
         required: true,
         trim: true
@@ -35,7 +35,7 @@ const addressSchema = new mongoose.Schema({
         type: String,
         required: true,
         trim: true,
-        default: "india"
+        default: "India"
     },
     landmark: {
         type: String,
@@ -50,9 +50,7 @@ const addressSchema = new mongoose.Schema({
         type: Boolean,
         default: true
     }
-
-
-}, { _id: true });
+}, { _id: true });  // _id: true is default, can even omit
 
 const Address = mongoose.model("Address", addressSchema);
 export default Address;
