@@ -48,7 +48,10 @@ const productSchema = new mongoose.Schema({
         type: Number,
         default: 0
     },
-
+    admin: {
+        type: mongoose.Types.ObjectId,
+        ref: "User"
+    },
     sku: {
         type: String,
         required: true,

@@ -3,7 +3,6 @@ import bcrypt from 'bcryptjs';
 import { generateToken } from '../lib/utils.js';
 import User from '../Models/user.models.js';
 
-const router = express.Router();
 
 export const signup = async (req, res) => {
     const { username, email, number, password, role } = req.body;

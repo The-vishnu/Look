@@ -13,6 +13,11 @@ const orderSchema = new mongoose.Schema({
             ref: "Product",
             required: true
         },
+        admin: {
+            type: mongoose.Types.ObjectId,
+            ref: "User",
+            required: true
+        },
         quantity: {
             type: Number,
             required: true
