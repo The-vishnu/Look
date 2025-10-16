@@ -3,6 +3,7 @@ import dotenv from 'dotenv';
 import cookieParser from "cookie-parser"
 import authRoutes from './src/Routes/auth.routes.js';
 import addProductRoute from "./src/Routes/product.routes.js"
+import srearchProduct from "./src/Routes/product.routes.js"
 import { connectDB } from './src/lib/db.js';
 
 
@@ -26,7 +27,8 @@ app.get("/api", (req, res) => {
 //Auth Route
 app.use("/api/auth", authRoutes);
 
-// Add products route
+// Add and search products route
+app.use("/api/search", srearchProduct);
 app.use("/api/admin", addProductRoute);
 
 

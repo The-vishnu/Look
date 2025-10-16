@@ -15,7 +15,6 @@ const userSchema = new mongoose.Schema({
     },
     number: {
         type: Number,
-        required: true,
     },
     address: {
         type: [mongoose.Types.ObjectId],
@@ -30,6 +29,10 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true,
         minLength: 6
+    },
+    profilePic: {
+        type: String,
+        trm: true
     },
     role: {
         type: String,

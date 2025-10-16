@@ -7,7 +7,7 @@ const dummyData = [
     "stock": 150,
     "images": ["https://example.com/images/aeroflex-tshirt-front.jpg"],
     "brand": "AeroFlex",
-    "sku": "Aq-TSHIRT-001",
+    "sku": "Av-TSHIRT-001",
     "tags": ["tshirt","cotton","casual","men","fashion"]
   },
   {
