@@ -5,16 +5,22 @@ import "./App.css";
 import GoogleAuth from "../src/Components/GoogleAuth.jsx";
 import SignupForm from "../src/Components/SignupForm.jsx";
 import { GoogleOAuthProvider } from "@react-oauth/google";
+import { Routes, Route } from "react-router-dom";
+import HomePage from "../src/Pages/HomePage.jsx";
+import ProfilePage from "../src/Pages/ProfilePage.jsx";
+import Navbar from "../src/Components/Navbar.jsx"
 
 function App() {
   const [count, setCount] = useState(0);
 
   return (
     <>
-      <div>
-        <GoogleOAuthProvider clientId={import.meta.env.VITE_GOOGLE_CLIENT_ID}>
-          <SignupForm />
-        </GoogleOAuthProvider>
+      <div className="flex flex-col">
+        <Navbar/>
+        <Routes>
+          <Route path="/" element={<HomePage/>}/>
+          <Route path="/profile" element={ProfilePage}></Route>
+        </Routes>
       </div>
     </>
   );
