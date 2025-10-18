@@ -1,15 +1,12 @@
-import React from 'react'
-
+import React, { useEffect, useRef } from "react";
+import Header from "../Components/HeaderComponent.jsx"
 const HomePage = () => {
+  
   return (
     <>
-      <div className='h-full w-full bg-gray-400'>
-        <div>
-            <img src="" alt="" />
-        </div>
-      </div>
+    <Header/>
     </>
-  )
-}
+  );
+};
 
-export default HomePage
+export default HomePage;
