@@ -1,46 +1,33 @@
-import React, { useEffect, useRef } from "react";
-import img1 from "/img1.png";
-import img2 from "/img2.png";
+import React from "react";
 import img3 from "/img3.png";
 
 const HeaderComponent = () => {
-  const scrollRef = useRef(null);
-
-  const slideRight = () => {
-    sliderRef.current.scrollLeft += 1300;
-  };
-
-  const slideLeft = () => {
-    sliderRef.current.scrollLeft -= 1300;
-  };
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      if (sliderRef.current) {
-        sliderRef.current.scrollLeft += 1300;
-
-        // Optional: Reset scroll when end is reached
-        if (
-          sliderRef.current.scrollLeft + sliderRef.current.clientWidth >=
-          sliderRef.current.scrollWidth
-        ) {
-          sliderRef.current.scrollLeft = 0;
-        }
-      }
-    }, 3000); // Slide every 3 seconds
-
-    return () => clearInterval(interval); // Clean up on unmount
-  }, []);
   return (
-    <>
-      <div className="h-full w-full flex justify-center items-center no-scrollbar">
-        <div className="h-[95vh] bg-gray-200 items-center-safe flex flex-row w-[90vw] gap-20 overflow-x-auto no-scrollbar">
-          <img src={img2} alt="" className="h-[85vh] w-[75vw]" />
-          <img src={img3} alt="" className="h-[85vh] w-[75vw]" />
-          <img src={img3} alt="" className="h-[85vh] w-[75vw]" />
-        </div>
+    <section
+      className="relative h-screen bg-cover bg-center flex items-center justify-start"
+      style={{ backgroundImage: `url(${img3})` }}
+    >
+
+      {/* Content box */}
+      <div className="relative z-0 text-white ml-16 max-w-md bg-black/40 backdrop-blur-sm p-6 rounded-2xl shadow-lg">
+        <span className="text-sm uppercase tracking-widest text-amber-400 font-semibold">
+          New Arrival
+        </span>
+
+        <h1 className="text-4xl font-bold mt-2 mb-3 leading-tight">
+          Discover our New Collection
+        </h1>
+
+        <p className="text-gray-200 mb-5 text-sm leading-relaxed">
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum,
+          inventore expedita nihil possimus.
+        </p>
+
+        <button className="bg-amber-500 hover:bg-amber-600 text-white font-semibold py-2 px-5 rounded-xl transition-all duration-200">
+          Buy Now
+        </button>
       </div>
-    </>
+    </section>
   );
 };
 
