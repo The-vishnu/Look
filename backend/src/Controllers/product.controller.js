@@ -64,4 +64,19 @@ export const searchProduct = async (req, res) => {
         console.log(`Error in finding products: ${error}`);
         res.status(401).json({ message: "faild to search" });
     }
+};
+
+export const Products = async (req, res) => {
+    try {
+        const { name } = req.query;
+        const product = await Product.find()
+
+        res.status(201).json({product});
+        console.log({product});
+
+    } catch (error) {
+        console.log(`Error in finding products: ${error}`);
+        res.status(401).json({ message: "faild to search" });
+    }
 }
+
