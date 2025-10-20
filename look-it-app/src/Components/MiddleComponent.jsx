@@ -34,7 +34,7 @@ const MiddleComponent = () => {
             {/* Hover Buttons & Icons */}
             <div className='absolute inset-0 bg-transparent bg-opacity-30 flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 gap-3'>
               <button className='bg-white text-black px-4 py-1 rounded-full font-semibold hover:bg-gray-200'>Add to Cart</button>
-              <button className='bg-green-500 text-white px-4 py-1 rounded-full font-semibold hover:bg-green-600'>Buy Now</button>
+              <button className='bg-black text-white px-4 py-1 rounded-full font-semibold hover:bg-gray-600'>Buy Now</button>
               <div className='flex gap-4 mt-2 text-white'>
                 <Heart className='cursor-pointer hover:text-red-500' />
                 <Share2 className='cursor-pointer hover:text-blue-400' />
@@ -50,7 +50,7 @@ const MiddleComponent = () => {
           </div>
         ))}
       </div>
-        <span className='bg-amber-300 p-2 rounded-2xl font-semibold'>Show More</span>
+        <span className='bg-black text-white p-2 rounded-2xl font-semibold'>Show More</span>
     </div>
   );
 };

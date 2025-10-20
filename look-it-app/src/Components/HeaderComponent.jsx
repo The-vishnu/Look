@@ -10,7 +10,7 @@ const HeaderComponent = () => {
 
       {/* Content box */}
       <div className="relative z-0 text-white ml-16 max-w-md bg-black/40 backdrop-blur-sm p-6 rounded-2xl shadow-lg">
-        <span className="text-sm uppercase tracking-widest text-amber-400 font-semibold">
+        <span className="text-sm uppercase tracking-widest text-black font-semibold">
           New Arrival
         </span>
 
@@ -23,7 +23,7 @@ const HeaderComponent = () => {
           inventore expedita nihil possimus.
         </p>
 
-        <button className="bg-amber-500 hover:bg-amber-600 text-white font-semibold py-2 px-5 rounded-xl transition-all duration-200">
+        <button className="bg-black hover:bg-gray-600 text-white font-semibold py-2 px-5 rounded-xl transition-all duration-200">
           Buy Now
         </button>
       </div>

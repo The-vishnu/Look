@@ -5,7 +5,7 @@ import { FaGoogle, FaLinkedin, FaFacebook, FaInstagram, FaTwitter } from 'react-
 
 const FooterComponent = () => {
   return (
-    <footer className="bg-gray-900 text-white py-10 mt-10">
+    <footer className="bg-black text-white py-10 mt-10">
       <div className="max-w-7xl mx-auto px-4 flex flex-col md:flex-row justify-between gap-8">
         
         {/* Brand & Message */}
