@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import NavbarTabs from './NavbarTabs';
+import ProfilePage from '../Pages/ProfilePage';
+import { NavLink, Link } from 'react-router-dom';
 import { Search, User, ShoppingBag, X, } from "lucide-react";
 
 const Navbar = () => {
@@ -44,6 +46,7 @@ const Navbar = () => {
           </div>
 
           <ShoppingBag className='cursor-pointer hover:text-gray-600 transition' size={20}/>
+          <Link></Link>
           <User className='cursor-pointer hover:text-gray-600 transition' size={20}/>
         </div>
 
