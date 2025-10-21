@@ -1,6 +1,7 @@
 import express from 'express';
 import Product from '../Models/product.models.js';
 import dummyProducts from '../lib/dummyProductData.js';
+import { fetchAndSeedProducts } from '../lib/thirdPartyApiProducts.js';
 
 export const addProduct = async (req, res) => {
     const { admin, name, description, price, category, stock, images, brand, sku, tags } = req.body;
@@ -9,9 +10,9 @@ export const addProduct = async (req, res) => {
     try {
 
         //Checking user is admin
-        if(user.role !== "Admin") {
+        if (user.role !== "Admin") {
             console.log(user.role);
-            return res.status(401).json({message: "Access denied - Admin only"})
+            return res.status(401).json({ message: "Access denied - Admin only" })
         }
 
         //adding the product
@@ -28,12 +29,12 @@ export const addProduct = async (req, res) => {
             tags
         });
 
-        res.status(201).json({newProduct});
-        console.log({newProduct});
+        res.status(201).json({ newProduct });
+        console.log({ newProduct });
 
 
     } catch (error) {
-        res.status(501).json({message: "internal server error"});
+        res.status(501).json({ message: "internal server error" });
         console.log(`Error in Product Controller: ${error}`);
     }
 }
@@ -57,8 +58,8 @@ export const searchProduct = async (req, res) => {
             name: { $regex: name, $options: "i" }
         });
 
-        res.status(201).json({product});
-        console.log({product});
+        res.status(201).json({ product });
+        console.log({ product });
 
     } catch (error) {
         console.log(`Error in finding products: ${error}`);
@@ -69,10 +70,16 @@ export const searchProduct = async (req, res) => {
 export const Products = async (req, res) => {
     try {
         const { name } = req.query;
-        const product = await Product.find()
+        let product = await Product.find();
 
-        res.status(201).json({product});
-        console.log({product});
+        if (!product || product.length === 0) {
+            console.log("⚙️ No products found, seeding now...")
+            await fetchAndSeedProducts();
+            product = await Product.find();
+        }
+
+
+        res.status(201).json({ product });
 
     } catch (error) {
         console.log(`Error in finding products: ${error}`);

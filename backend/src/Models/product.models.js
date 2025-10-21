@@ -40,8 +40,12 @@ const productSchema = new mongoose.Schema({
     },
 
     rating: {
-        type: Number,
-        default: 0
+        rate: {
+            type: Number,
+        },
+        count: {
+            type: Number,
+        }
     },
 
     numOfReviews: {
