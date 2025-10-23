@@ -46,8 +46,8 @@ const Navbar = () => {
           </div>
 
           <ShoppingBag className='cursor-pointer hover:text-gray-600 transition' size={20}/>
-          <Link></Link>
-          <User className='cursor-pointer hover:text-gray-600 transition' size={20}/>
+          <Link to="/profile"><User className='cursor-pointer hover:text-gray-600 transition' size={20}/></Link>
+          
         </div>
 
       </div>

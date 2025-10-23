@@ -3,8 +3,10 @@ import React from 'react'
 const ProfilePage = () => {
   return (
     <>
-      <div>
-        wellcom user
+      <div className='bg-red-300 w-65 h-screen items-center justify-center content-center'>
+         <div>
+          user profile
+         </div>
       </div>
     </>
   )
