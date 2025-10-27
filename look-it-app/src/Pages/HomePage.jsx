@@ -45,7 +45,7 @@ const HomePage = () => {
       )}
 
       {/* Home Content */}
-      <div className="flex flex-col gap-3 no-scrollbar">
+      <div className="flex flex-col w-full gap-3 no-scrollbar">
         <Header />
         <Middle />
         <Footer/>

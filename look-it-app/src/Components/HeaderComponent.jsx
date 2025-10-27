@@ -4,7 +4,7 @@ import img3 from "/img3.png";
 const HeaderComponent = () => {
   return (
     <section
-      className="relative h-screen bg-cover bg-center flex items-center justify-start"
+      className="relative h-screen w-full bg-cover bg-center flex items-center justify-start"
       style={{ backgroundImage: `url(${img3})` }}
     >
 

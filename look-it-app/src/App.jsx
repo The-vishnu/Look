@@ -8,14 +8,14 @@ import { GoogleOAuthProvider } from "@react-oauth/google";
 import { Routes, Route } from "react-router-dom";
 import HomePage from "../src/Pages/HomePage.jsx";
 import ProfilePage from "../src/Pages/ProfilePage.jsx";
-import Navbar from "../src/Components/Navbar.jsx"
+import Navbar from "../src/Components/Navbar.jsx";
 
 function App() {
   const [count, setCount] = useState(0);
 
   return (
     <>
-      <div className="flex flex-col no-scrollbar">
+      <div className="flex flex-col no-scrollbar items-center justify-center">
         <Navbar/>
         <Routes>
           <Route path="/" element={<HomePage/>}/>
