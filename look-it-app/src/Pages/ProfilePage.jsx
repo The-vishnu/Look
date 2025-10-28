@@ -15,7 +15,7 @@ const ProfilePage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 flex flex-col items-center py-10">
+    <div className="min-h-screen w-full flex flex-col items-center py-10">
       {/* Profile Header */}
       <div className="bg-white shadow-md rounded-2xl w-11/12 max-w-4xl p-6 flex flex-col sm:flex-row items-center sm:items-start gap-6">
         {/* Profile Image */}
@@ -23,7 +23,7 @@ const ProfilePage = () => {
           <img
             src={user.profileImg}
             alt="Profile"
-            className="w-32 h-32 rounded-full object-cover border-4 border-gray-200 shadow-sm"
+            className="w-40 h-40 rounded-full object-cover border-4 border-gray-200 shadow-sm"
           />
         </div>
 
@@ -36,19 +36,19 @@ const ProfilePage = () => {
           <div className="flex justify-center sm:justify-start gap-6 mt-4 text-sm text-gray-700">
             <div className="text-center">
               <p className="font-bold">{user.postsCount}</p>
-              <p className="text-gray-500">Posts</p>
+              <p className="text-gray-500 font-semibold text-[16px]">Posts</p>
             </div>
             <div className="text-center">
               <p className="font-bold">{user.galleryCount}</p>
-              <p className="text-gray-500">Gallery</p>
+              <p className="text-gray-500 font-semibold text-[16px]">Gallery</p>
             </div>
             <div className="text-center">
               <p className="font-bold">{user.orderCount}</p>
-              <p className="text-gray-500">Orders</p>
+              <p className="text-gray-500 font-semibold text-[16px]">Orders</p>
             </div>
             <div className="text-center">
               <p className="font-bold">{user.cartCount}</p>
-              <p className="text-gray-500">Cart</p>
+              <p className="text-gray-500 font-semibold text-[16px]">Cart</p>
             </div>
           </div>
         </div>
