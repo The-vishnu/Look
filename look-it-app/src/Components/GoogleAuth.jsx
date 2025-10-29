@@ -11,7 +11,7 @@ const GoogleAuth = ({ onSuccess }) => {
       const token = credentialResponse.credential;
 
       // send directly to backend
-      const res = await axios.post("http://localhost:5000/api/auth/google", {
+      const res = await axios.post(`${import.meta.env.VITE_API_URL}google`, {
         token, // ye ab id_token hai, not access_token
       });
 
