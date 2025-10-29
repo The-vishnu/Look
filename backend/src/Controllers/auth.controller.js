@@ -4,55 +4,54 @@ import { OAuth2Client } from 'google-auth-library'
 import { generateToken } from '../lib/utils.js';
 import User from '../Models/user.models.js';
 
+const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
 
 export const googleAuth = async (req, res) => {
-    const client = new OAuth2Client(process.env.GOOGLE_CLIENT_SECRET);
-    try {
-        const { token } = req.body;
-        //veryfing google token
-        const ticket = await client.verifyIdToken({
-            idToken: token,
-            audience: process.env.GOOGLE_CLIENT_SECRET
-        });
+  try {
+    const { token } = req.body;
 
-        const payload = ticket.getPayload();
-        const { email, name, picture } = payload;
+    // Verify token
+    const ticket = await client.verifyIdToken({
+      idToken: token,
+      audience: process.env.GOOGLE_CLIENT_ID,
+    });
 
-        //check user exist or not
-        let user = await User.findOne({ email: payload.email });
+    const payload = ticket.getPayload();
+    console.log("✅ Verified Payload:", payload);
 
-        //if user doesnt exist, create new onw
-        if(!user) {
-            user = await User.create({
-                username: name,
-                email: email,
-                profilePic: picture || ""
-            });
-        }
-        //Generate Token
-        const appToken = generateToken(user._id, res);
+    const { email, name, picture } = payload;
 
-        //send responce
-        console.log({message: "Loggin successfully"});
-        res.status(201).json({
-            success: true,
-            token: appToken,
-            user: {
-                _id: user._id,
-                username: user.name,
-                email: user.email,
-                profilePic: user.picture
-            }
-        });
-
-
-
-    } catch (error) {
-        console.log({message: "Error in google Auth"});
-        res.status(401).json({message: "Google auth failed"});
+    // Find or create user
+    let user = await User.findOne({ email });
+    if (!user) {
+      user = await User.create({
+        username: name,
+        email,
+        profilePic: picture || "",
+      });
     }
 
-}
+    // Generate app token
+    const appToken = generateToken(user._id, res);
+
+    console.log("🎉 Login successful:", user.username);
+
+    res.status(200).json({
+      success: true,
+      token: appToken,
+      user: {
+        _id: user._id,
+        username: user.username,
+        email: user.email,
+        profilePic: user.profilePic,
+      },
+    });
+  } catch (error) {
+    console.error("❌ Error in Google Auth:", error.message);
+    res.status(401).json({ message: "Google auth failed", error: error.message });
+  }
+};
+
 
 export const signup = async (req, res) => {
     const { username, email, number, password, role } = req.body;

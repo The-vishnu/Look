@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import Header from "../Components/HeaderComponent.jsx";
 import Middle from "../Components/MiddleComponent.jsx";
 import Footer from "../Components/FooterComponent.jsx";
+import GoogleAuth from "../Components/GoogleAuth.jsx";
 import { useNavigate } from "react-router-dom";
 import Google from "/google.png";
 
@@ -25,14 +26,19 @@ const HomePage = () => {
           <div className="bg-white rounded-2xl shadow-2xl p-8 w-96 text-center relative animate-fadeIn">
             <h2 className="text-2xl font-bold mb-4">Join Look-It Now!</h2>
             <p className="text-gray-500 mb-6">
-              Sign up quickly with Google and start exploring exclusive products.
+              Sign up quickly with Google and start exploring exclusive
+              products.
             </p>
 
-            <button
-              className="flex items-center justify-center gap-2 w-full hover:bg-gray-200 font-semibold py-2 rounded-lg transition"
-            >
-              <img src={Google} alt="Google" className="h-10 w-15" /> Sign up with Google
-            </button>
+            <span className="flex items-center justify-center gap-2 w-full hover:bg-gray-200 font-semibold py-2 rounded-lg transition">
+            
+            <GoogleAuth
+              onSuccess={(user, token) => {
+                console.log("user:", user);
+                console.log("token: ", token);
+              }}
+            />
+            </span>
 
             <span
               className="absolute top-3 right-3 cursor-pointer text-gray-500 hover:text-gray-800"
@@ -48,7 +54,7 @@ const HomePage = () => {
       <div className="flex flex-col w-full gap-3 no-scrollbar">
         <Header />
         <Middle />
-        <Footer/>
+        <Footer />
       </div>
     </>
   );
