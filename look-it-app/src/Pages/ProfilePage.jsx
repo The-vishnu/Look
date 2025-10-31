@@ -1,18 +1,33 @@
-import React, { useState } from "react";
-import { ShoppingBag, Image as ImageIcon, ShoppingCart, Grid3X3 } from "lucide-react";
+import React, { useEffect, useState } from "react";
+import {
+  ShoppingBag,
+  Image as ImageIcon,
+  ShoppingCart,
+  Grid3X3,
+} from "lucide-react";
+import { useAuthStore } from "../Store/useAuthStore";
 
 const ProfilePage = () => {
   const [activeTab, setActiveTab] = useState("posts");
+  const { authUser, logout, checkAuth } = useAuthStore();
 
+  useEffect(() => {
+    checkAuth();
+  }, []);
   // Dummy user stats (baad me backend se connect karenge)
-  const user = {
-    name: "Boss Kumar",
-    profileImg: "/img1.png",
-    postsCount: 8,
-    galleryCount: 14,
-    orderCount: 5,
-    cartCount: 3,
-  };
+  // const user = {
+  //   name: "Boss Kumar",
+  //   profileImg: "/img1.png",
+  //   postsCount: 8,
+  //   galleryCount: 14,
+  //   orderCount: 5,
+  //   cartCount: 3,
+  // };
+  if (!authUser) {
+    return (
+      <div className="text-center mt-20 text-gray-500">Loading profile...</div>
+    );
+  }
 
   return (
     <div className="min-h-screen w-full flex flex-col items-center py-10">
@@ -21,7 +36,7 @@ const ProfilePage = () => {
         {/* Profile Image */}
         <div className="relative">
           <img
-            src={user.profileImg}
+            src={authUser.profilePic || "/default-avatar.png"}
             alt="Profile"
             className="w-40 h-40 rounded-full object-cover border-4 border-gray-200 shadow-sm"
           />
@@ -29,25 +44,27 @@ const ProfilePage = () => {
 
         {/* Profile Info */}
         <div className="flex-1 text-center sm:text-left">
-          <h2 className="text-2xl font-semibold text-gray-800">{user.name}</h2>
+          <h2 className="text-2xl font-semibold text-gray-800">
+            {authUser.name}
+          </h2>
           <p className="text-gray-500 text-sm mt-1">Loyal Member 🛍️</p>
 
           {/* Stats */}
           <div className="flex justify-center sm:justify-start gap-6 mt-4 text-sm text-gray-700">
             <div className="text-center">
-              <p className="font-bold">{user.postsCount}</p>
+              <p className="font-bold">{authUser.postsCount}</p>
               <p className="text-gray-500 font-semibold text-[16px]">Posts</p>
             </div>
             <div className="text-center">
-              <p className="font-bold">{user.galleryCount}</p>
+              <p className="font-bold">{authUser.galleryCount}</p>
               <p className="text-gray-500 font-semibold text-[16px]">Gallery</p>
             </div>
             <div className="text-center">
-              <p className="font-bold">{user.orderCount}</p>
+              <p className="font-bold">{authUser.orderCount}</p>
               <p className="text-gray-500 font-semibold text-[16px]">Orders</p>
             </div>
             <div className="text-center">
-              <p className="font-bold">{user.cartCount}</p>
+              <p className="font-bold">{authUser.cartCount}</p>
               <p className="text-gray-500 font-semibold text-[16px]">Cart</p>
             </div>
           </div>
@@ -59,7 +76,9 @@ const ProfilePage = () => {
         <div className="flex justify-around border-b border-gray-300 pb-2">
           <button
             className={`flex items-center gap-2 px-3 py-1 font-semibold ${
-              activeTab === "posts" ? "text-black border-b-2 border-black" : "text-gray-500"
+              activeTab === "posts"
+                ? "text-black border-b-2 border-black"
+                : "text-gray-500"
             }`}
             onClick={() => setActiveTab("posts")}
           >
@@ -67,7 +86,9 @@ const ProfilePage = () => {
           </button>
           <button
             className={`flex items-center gap-2 px-3 py-1 font-semibold ${
-              activeTab === "gallery" ? "text-black border-b-2 border-black" : "text-gray-500"
+              activeTab === "gallery"
+                ? "text-black border-b-2 border-black"
+                : "text-gray-500"
             }`}
             onClick={() => setActiveTab("gallery")}
           >
@@ -75,7 +96,9 @@ const ProfilePage = () => {
           </button>
           <button
             className={`flex items-center gap-2 px-3 py-1 font-semibold ${
-              activeTab === "orders" ? "text-black border-b-2 border-black" : "text-gray-500"
+              activeTab === "orders"
+                ? "text-black border-b-2 border-black"
+                : "text-gray-500"
             }`}
             onClick={() => setActiveTab("orders")}
           >
@@ -83,7 +106,9 @@ const ProfilePage = () => {
           </button>
           <button
             className={`flex items-center gap-2 px-3 py-1 font-semibold ${
-              activeTab === "cart" ? "text-black border-b-2 border-black" : "text-gray-500"
+              activeTab === "cart"
+                ? "text-black border-b-2 border-black"
+                : "text-gray-500"
             }`}
             onClick={() => setActiveTab("cart")}
           >

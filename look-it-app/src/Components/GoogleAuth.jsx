@@ -17,6 +17,7 @@ const GoogleAuth = ({ onSuccess }) => {
 
       console.log("Backend Response:", res.data);
       onSuccess(res.data.user, res.data.token);
+      setGoogleUser(res.data.user, res.data.token);
     } catch (err) {
       console.error("Google login failed:", err);
     }

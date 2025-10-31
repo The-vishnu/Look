@@ -5,10 +5,12 @@ import Footer from "../Components/FooterComponent.jsx";
 import GoogleAuth from "../Components/GoogleAuth.jsx";
 import { useNavigate } from "react-router-dom";
 import Google from "/google.png";
+import { useAuthStore } from "../Store/useAuthStore.js";
 
 const HomePage = () => {
   const [showSignup, setShowSignup] = useState(false);
   const navigate = useNavigate();
+  const { authUser, checkAuth, login } = useAuthStore()
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -17,6 +19,10 @@ const HomePage = () => {
 
     return () => clearTimeout(timer); // Cleanup
   }, []);
+
+  useEffect(() => {
+    checkAuth();
+  }, [checkAuth])
 
   return (
     <>

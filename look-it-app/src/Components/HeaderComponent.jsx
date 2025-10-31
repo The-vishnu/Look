@@ -1,7 +1,13 @@
-import React from "react";
+import React, { useEffect } from "react";
 import img3 from "/img3.png";
+import { useAuthStore } from "../Store/useAuthStore";
 
 const HeaderComponent = () => {
+  const { authUser, checkAuth, login } = useAuthStore()
+
+  useEffect(() => {
+    checkAuth();
+  }, [checkAuth])
   return (
     <section
       className="relative h-screen w-full bg-cover bg-center flex items-center justify-start"
