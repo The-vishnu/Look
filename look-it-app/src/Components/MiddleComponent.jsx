@@ -3,18 +3,21 @@ import React, { useEffect, useState } from "react";
 import img from "/img3.png";
 import { Heart, Share2 } from "lucide-react";
 import { useProductStore } from "../Store/useProductStore";
-import { Link, Navigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import ProductDetails from "../Pages/ProductDetails";
 
 const MiddleComponent = () => {
+  const navigate = useNavigate(); // renamed from Navigate
   const { product, getProduct, isProductLoading } = useProductStore();
   const [more, setMore] = useState(5);
   const fallbackImage = img; // local fallback if API image missing
 
-  const handleClickProduct = (product) => {
-    console.log(product)
-    // Navigate(`/product/${product.id}`, {state: {product}})
-  }
+  const handleClickProduct = (item) => {
+    // derive id safely and pass the full item in location.state
+    const id = item?._id ?? item?.id ?? item?.sku;
+    if (!id) return; // guard
+    navigate(`/product/${id}`, { state: { product: item } });
+  };
 
   useEffect(() => {
     getProduct();
@@ -39,7 +42,7 @@ const MiddleComponent = () => {
         <p className="text-gray-400 text-base">No products found 😕</p>
       ) : (
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-5 w-11/12 max-w-7xl mx-auto">
-          {product.slice(0, more).map((itme, index) => {
+          {(Array.isArray(product) ? product.slice(0, more) : []).map((itme, index) => {
             const key = itme?._id || itme?.sku || index;
             const src = itme?.images?.[1] || itme?.images?.[0] || fallbackImage;
             const alt = itme?.name || "Product image";
@@ -54,19 +57,18 @@ const MiddleComponent = () => {
 
             return (
               <div
-              
                 key={key}
-                onClick={() => handleClickProduct(key)}
+                onClick={() => handleClickProduct(itme)} // pass full item
                 className="relative group rounded-xl overflow-hidden shadow-sm hover:shadow-xl transform transition-all duration-300 bg-white"
               >
                 {/* Image container */}
-                <div className="w-full h-56 flex items-center justify-center bg-gray-100 overflow-hidden">
+                <div className="w-full h-56 flex items-center  hover:cursor-pointer justify-center bg-gray-100 overflow-hidden">
                   <img
                     src={src}
                     alt={alt}
                     loading="lazy"
                     className="w-full h-full object-contain transition-transform duration-300 group-hover:scale-105"
-                  /> 
+                  />
                 </div>
 
                 {/* Hover overlay (transparent + smooth) */}
@@ -90,7 +92,6 @@ const MiddleComponent = () => {
                     <div className="rounded-full inline-flex h-5 w-5 items-center justify-center">
                       <Share2 className="cursor-pointer w-4 h-4 text-white/90" />
                     </div>
-                    
                   </div>
                 </div>
 
@@ -104,7 +105,6 @@ const MiddleComponent = () => {
                   </p>
                 </div>
               </div>
-              
             );
           })}
         </div>
