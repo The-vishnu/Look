@@ -11,7 +11,7 @@ export const useProductStore = create((set, get) => ({
             const res = await axiosInstance.get(`/search/all/products`);
             const data = await res.data;
             set({ product: data.product || data, isProductLoading: false });
-            console.log(data)
+            // console.log(data)
             
         } catch (error) {
             console.log({ message: `failed to fetch ${error}` });

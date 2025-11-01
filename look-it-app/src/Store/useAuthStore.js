@@ -1,66 +1,77 @@
 import { create } from "zustand";
 import { axiosInstance } from "../lib/axios.js";
 
-
 export const useAuthStore = create((set) => ({
-    authUser: null,
-    isSigningUp: false,
-    isLogging: false,
-    isAuthChecking: true,
+  authUser: null,
+  isSigningUp: false,
+  isLogging: false,
+  isAuthChecking: true,
 
-    checkAuth: async () => {
-        try {
-            const res = await axiosInstance(`/auth/checkAuth`);
-            const data = await req.data;
+  // ✅ Check Auth
+  checkAuth: async () => {
+    try {
+      const res = await axiosInstance.get("/auth/checkAuth", {
+        withCredentials: true,
+      });
+      console.log("✅ Auth response:", res.data);
 
-            console.log({ message: `Auth checking Responce: ${data}` });
-            set({ authUser: data.user });
-        } catch (error) {
-            console.log("Auth check failed:", error);
-            set({ authUser: null });
-        } finally {
-            set({ isAuthChecking: false });
-        }
-    },
-
-    signup: async () => {
-        try {
-            const res = await axiosInstance(`/auth/signup`);
-            const user = req.user;
-            console.log({ message: `user data: ${user}` });
-            set({ isSigningUp: true });
-
-        } catch (error) {
-            console.log({ message: `Sign up failed: ${error}` });
-        } finally {
-            set({ isSigningUp: false });
-        }
-    },
-
-    login: async () => {
-        try {
-            const res = await axiosInstance(`/auth/login`);
-            const user = req.user;
-            console.log({ message: `user data: ${user}` });
-            set({ isLogging: true });
-
-        } catch (error) {
-            console.log({ message: `Login up failed: ${error}` });
-        } finally {
-            set({ isLogging: false });
-        }
-    },
-
-    logout: async () => {
-        try {
-            await axiosInstance(`/auth/logout`);
-            set({ authUser: null });
-        } catch (error) {
-            console.log({ message: `logout failed: ${error}` });
-        } finally {
-            set({ isLogging: false });
-        }
+      if (res.data?.success) {
+        set({ authUser: res.data.user, isLogging: true });
+      } else {
+        set({ authUser: null, isLogging: false });
+      }
+    } catch (error) {
+      console.log("❌ Auth check failed:", error);
+      set({ authUser: null, isLogging: false });
+    } finally {
+      set({ isAuthChecking: false });
     }
+  },
 
+  // ✅ Signup
+  signup: async (formData) => {
+    try {
+      set({ isSigningUp: true });
+      const res = await axiosInstance.post("/auth/signup", formData, {
+        withCredentials: true,
+      });
+      console.log("Signup success:", res.data);
+      if (res.data?.user) {
+        set({ authUser: res.data.user });
+      }
+    } catch (error) {
+      console.log("❌ Signup failed:", error);
+    } finally {
+      set({ isSigningUp: false });
+    }
+  },
 
-}))
+  // ✅ Login
+  login: async (credentials) => {
+    try {
+      set({ isLogging: true });
+      const res = await axiosInstance.post("/auth/login", credentials, {
+        withCredentials: true,
+      });
+      console.log("Login success:", res.data);
+      if (res.data?.user) {
+        set({ authUser: res.data.user });
+      }
+    } catch (error) {
+      console.log("❌ Login failed:", error);
+    } finally {
+      set({ isLogging: false });
+    }
+  },
+
+  // ✅ Logout
+  logout: async () => {
+    try {
+      await axiosInstance.post("/auth/logout", {}, { withCredentials: true });
+      console.log("Logged out successfully");
+      set({ authUser: null, isLogging: false });
+    } catch (error) {
+      console.log("❌ Logout failed:", error);
+    }
+  },
+}));

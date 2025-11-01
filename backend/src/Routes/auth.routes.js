@@ -10,6 +10,6 @@ router.post("/logout", logout);
 //Google Auth Route
 router.post("/google", googleAuth);
 
-router.get("/check", checkAuth);
+router.get("/checkAuth", checkAuth);
 
 export default router;
