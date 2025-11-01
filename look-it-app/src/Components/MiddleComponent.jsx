@@ -3,11 +3,18 @@ import React, { useEffect, useState } from "react";
 import img from "/img3.png";
 import { Heart, Share2 } from "lucide-react";
 import { useProductStore } from "../Store/useProductStore";
+import { Link, Navigate } from "react-router-dom";
+import ProductDetails from "../Pages/ProductDetails";
 
 const MiddleComponent = () => {
   const { product, getProduct, isProductLoading } = useProductStore();
   const [more, setMore] = useState(5);
   const fallbackImage = img; // local fallback if API image missing
+
+  const handleClickProduct = (product) => {
+    console.log(product)
+    // Navigate(`/product/${product.id}`, {state: {product}})
+  }
 
   useEffect(() => {
     getProduct();
@@ -47,7 +54,9 @@ const MiddleComponent = () => {
 
             return (
               <div
+              
                 key={key}
+                onClick={() => handleClickProduct(key)}
                 className="relative group rounded-xl overflow-hidden shadow-sm hover:shadow-xl transform transition-all duration-300 bg-white"
               >
                 {/* Image container */}
@@ -57,7 +66,7 @@ const MiddleComponent = () => {
                     alt={alt}
                     loading="lazy"
                     className="w-full h-full object-contain transition-transform duration-300 group-hover:scale-105"
-                  />
+                  /> 
                 </div>
 
                 {/* Hover overlay (transparent + smooth) */}
@@ -95,6 +104,7 @@ const MiddleComponent = () => {
                   </p>
                 </div>
               </div>
+              
             );
           })}
         </div>

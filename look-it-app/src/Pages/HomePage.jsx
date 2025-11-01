@@ -3,7 +3,7 @@ import Header from "../Components/HeaderComponent.jsx";
 import Middle from "../Components/MiddleComponent.jsx";
 import Footer from "../Components/FooterComponent.jsx";
 import GoogleAuth from "../Components/GoogleAuth.jsx";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import Google from "/google.png";
 import { useAuthStore } from "../Store/useAuthStore.js";
 

@@ -46,3 +46,18 @@ export const veryfiAdmin = async (req, res, next) => {
         res.status(401).json({ message: "Not authorized" });
     }
 }
+
+export const verifyToken = (req, res, next) => {
+    const token = req.cookies?.token; // ya headers se le rahe ho?
+    if (!token) {
+        return res.status(401).json({ message: "No token found" });
+    }
+
+    try {
+        const decoded = jwt.verify(token, process.env.JWT_SECRET);
+        req.user = decoded; // ye line important hai!
+        next();
+    } catch (error) {
+        res.status(403).json({ message: "Invalid token" });
+    }
+};

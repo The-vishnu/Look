@@ -10,7 +10,7 @@ export const googleAuth = async (req, res) => {
   try {
     const { token } = req.body;
 
-    // Verify token
+    // Verify Google token
     const ticket = await client.verifyIdToken({
       idToken: token,
       audience: process.env.GOOGLE_CLIENT_ID,
@@ -31,14 +31,14 @@ export const googleAuth = async (req, res) => {
       });
     }
 
-    // Generate app token
+    // Generate and set cookie token
     const appToken = generateToken(user._id, res);
 
-    console.log("🎉 Login successful:", user.username);
+    console.log("🎉 Google Login successful:", user.username);
 
+    // Send user data (token already in cookie)
     res.status(200).json({
       success: true,
-      token: appToken,
       user: {
         _id: user._id,
         username: user.username,
@@ -132,6 +132,8 @@ export const logout = (req, res) => {
 
 export const checkAuth = (req, res) => {
     try {
+        console.log("CheckAuth reached ✅");
+        console.log("User inside req:", req.user);
         res.status(201).json(req.user);
     } catch (error) {
         console.log({message: "error in check Auth controller: ", error});
