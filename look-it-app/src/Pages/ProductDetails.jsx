@@ -17,6 +17,7 @@ import { useProductStore } from "../Store/useProductStore";
 const ProductDetails = () => {
   const [prompt, setPrompt] = useState("");
   const [image, setImage] = useState(null);
+  const [generatedImg, setGeneratedImg] = useState(null);
   const [loading, setLoading] = useState(false);
   const previewRef = useRef(null)
   const { id } = useParams();
@@ -55,11 +56,7 @@ const ProductDetails = () => {
 
     try {
         
-      // 🔹 For now — dummy delay and static image
-      await new Promise((res) => setTimeout(res, 2000));
-      setImage(
-        `https://source.unsplash.com/800x600/?${encodeURIComponent(prompt)}`
-      );
+     
     } catch (err) {
       console.error("Error generating image:", err);
       alert("Failed to generate image.");
@@ -203,7 +200,7 @@ const ProductDetails = () => {
             onClick={handleGenerate}
             disabled={loading}
             className={`${
-              loading ? "bg-gray-300" : "bg-black hover:bg-gray-800"
+              loading ? "bg-gray-300" : "bg-black hover:cursor-pointer hover:bg-gray-800"
             } text-white font-semibold px-5 py-2 rounded-full transition duration-200`}
           >
             {loading ? (
@@ -220,10 +217,10 @@ const ProductDetails = () => {
             <p className="text-gray-500 text-sm animate-pulse">
               Generating your masterpiece... 🪄
             </p>
-          ) : image ? (
+          ) : generatedImg ? (
             <div className="rounded-2xl overflow-hidden shadow-lg border border-gray-200">
               <img
-                src={image}
+                src={generatedImg}
                 alt="Generated"
                 className="w-full h-[400px] object-cover"
               />

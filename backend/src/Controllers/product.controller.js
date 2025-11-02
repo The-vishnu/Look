@@ -2,6 +2,8 @@ import express from 'express';
 import Product from '../Models/product.models.js';
 import dummyProducts from '../lib/dummyProductData.js';
 import { fetchAndSeedProducts } from '../lib/thirdPartyApiProducts.js';
+import { GoogleGenerativeAI } from '@google/generative-ai'
+
 
 export const addProduct = async (req, res) => {
     const { admin, name, description, price, category, stock, images, brand, sku, tags } = req.body;
@@ -87,3 +89,6 @@ export const Products = async (req, res) => {
     }
 }
 
+export const generateProductImage = async (req, res) => {
+    
+}
