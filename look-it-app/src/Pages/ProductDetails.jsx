@@ -12,6 +12,7 @@ import {
 } from "lucide-react";
 import { useLocation, useParams } from "react-router-dom";
 import { useProductStore } from "../Store/useProductStore";
+import  axios  from "axios";
 
 
 const ProductDetails = () => {
@@ -39,6 +40,8 @@ const ProductDetails = () => {
 
   };
 
+
+ 
     useEffect(() => {
     // cleanup preview URL on unmount
     return () => {
@@ -55,8 +58,20 @@ const ProductDetails = () => {
     setLoading(true);
 
     try {
-        
-     
+        const response = await axios.post(
+          "http://localhost:5000/api/gemini/generate-look",
+          { prompt },
+
+          {
+            headers: {
+              "Content-Type": "application/json"
+            },
+          }
+        );
+
+        const imageBase64 = response.data.image;
+        setGeneratedImg(`data:image/png;base64,${imageBase64}`);
+
     } catch (err) {
       console.error("Error generating image:", err);
       alert("Failed to generate image.");

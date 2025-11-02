@@ -4,7 +4,8 @@ import cors from "cors";
 import cookieParser from "cookie-parser";
 import authRoutes from './src/Routes/auth.routes.js';
 import addProductRoute from "./src/Routes/product.routes.js"
-import srearchProduct from "./src/Routes/product.routes.js"
+import srearchProduct from "./src/Routes/product.routes.js";
+import gemini from "./src/Routes/product.routes.js";
 import { connectDB } from './src/lib/db.js';
 
 
@@ -37,6 +38,7 @@ app.use("/api/auth", authRoutes);
 // Add and search products route
 app.use("/api/search", srearchProduct);
 app.use("/api/admin", addProductRoute);
+app.use("/api/gemini", gemini)
 
 
 app.listen(PORT, () => {

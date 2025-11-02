@@ -1,10 +1,10 @@
 import express from 'express';
 import bcrypt from 'bcryptjs';
-import { OAuth2Client } from 'google-auth-library'
+// import { OAuth2Client } from 'google-auth-library';
 import { generateToken } from '../lib/utils.js';
 import User from '../Models/user.models.js';
 
-const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
+// const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
 
 export const googleAuth = async (req, res) => {
   try {

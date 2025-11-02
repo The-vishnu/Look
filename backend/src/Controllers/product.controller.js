@@ -2,7 +2,8 @@ import express from 'express';
 import Product from '../Models/product.models.js';
 import dummyProducts from '../lib/dummyProductData.js';
 import { fetchAndSeedProducts } from '../lib/thirdPartyApiProducts.js';
-import { GoogleGenerativeAI } from '@google/generative-ai'
+import { GoogleGenAI } from '@google/genai';
+import * as fs from "node:fs";
 
 
 export const addProduct = async (req, res) => {
@@ -89,6 +90,23 @@ export const Products = async (req, res) => {
     }
 }
 
+
 export const generateProductImage = async (req, res) => {
-    
+    const genAI = new GoogleGenAI({
+        apiKey: process.env.GEMINI_API_KEY,
+    });
+    try {
+        const { prompt } = req.body;
+
+        const response = await genAI.models.generateContent({
+            model: "models/gemini-2.5-flash-image",
+            contents: prompt,
+        });
+
+        const imgBytes = response.generatedImages.imageBytes;
+        res.status(200).json({ image: imgBytes });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: "Image generation failed" });
+    }
 }
