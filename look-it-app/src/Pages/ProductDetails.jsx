@@ -18,6 +18,7 @@ import  axios  from "axios";
 const ProductDetails = () => {
   const [prompt, setPrompt] = useState("");
   const [image, setImage] = useState(null);
+  const [tryImageGenerator, setTryImageGenerator] = useState(false);
   const [generatedImg, setGeneratedImg] = useState(null);
   const [loading, setLoading] = useState(false);
   const previewRef = useRef(null)
@@ -166,7 +167,7 @@ const ProductDetails = () => {
               <button className="flex-1 bg-black hover:bg-gray-500 text-white font-semibold py-3 rounded-xl shadow-md flex items-center justify-center gap-2 transition">
                 <ShoppingCart size={20} /> Add to Cart
               </button>
-              <button className="flex-1 bg-black hover:bg-gray-500 text-white font-semibold py-3 rounded-xl shadow-md flex items-center justify-center gap-2 transition">
+              <button className="flex-1 bg-black hover:bg-gray-500 text-white font-semibold py-3 rounded-xl shadow-md flex items-center justify-center gap-2 transition" onClick={() => setGeneratedImg(true)}>
                 <Zap size={20} /> Try Now
               </button>
             </div>
@@ -174,7 +175,7 @@ const ProductDetails = () => {
         </div>
       </div>
 
-      <div className="min-h-[80vh] w-full flex flex-col items-center justify-center bg-gradient-to-b from-white via-gray-50 to-gray-100 px-4 py-10">
+      <div className={`min-h-[80vh] w-full flex flex-col items-center justify-center bg-gradient-to-b from-white via-gray-50 to-gray-100 px-4 py-10 ${generatedImg || tryImageGenerator ? "" : "hidden"}`}>
         {/* Header */}
         <div className="text-center mb-8">
           <h1 className="text-3xl font-bold text-gray-800 flex items-center justify-center gap-2">

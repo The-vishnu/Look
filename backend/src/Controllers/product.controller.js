@@ -99,7 +99,7 @@ export const generateProductImage = async (req, res) => {
         const { prompt } = req.body;
 
         const response = await genAI.models.generateContent({
-            model: "models/gemini-2.5-flash-image",
+            model: "gemini-2.5-flash-image-preview",
             contents: prompt,
         });
 
