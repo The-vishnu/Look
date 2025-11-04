@@ -10,6 +10,7 @@ import HomePage from "../src/Pages/HomePage.jsx";
 import ProfilePage from "../src/Pages/ProfilePage.jsx";
 import Navbar from "../src/Components/Navbar.jsx";
 import ProductDetails from "./Pages/ProductDetails.jsx";
+import toast, { Toaster } from 'react-hot-toast';
 
 function App() {
   const [count, setCount] = useState(0);
@@ -23,6 +24,7 @@ function App() {
           <Route path="/profile" element={<ProfilePage/>}></Route>
           <Route path="/product/:id" element={<ProductDetails/>}/>
         </Routes>
+        <Toaster/>
       </div>
     </>
   );

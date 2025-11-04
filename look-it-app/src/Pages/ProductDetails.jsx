@@ -12,6 +12,7 @@ import {
 } from "lucide-react";
 import { useLocation, useParams } from "react-router-dom";
 import { useProductStore } from "../Store/useProductStore";
+import { toast } from "react-hot-toast";
 import axios from "axios";
 import img from "/img3.png"; // added fallback image import
 // ...existing code...
@@ -118,7 +119,7 @@ const ProductDetails = () => {
       }
     } catch (err) {
       console.error("Error in generation/chat:", err);
-      alert("Failed to process request.");
+      toast.error(err.response?.data?.message || err.message || "Something went wrong!");
     } finally {
       setLoading(false);
     }
